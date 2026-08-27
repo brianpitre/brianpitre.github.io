@@ -1,0 +1,957 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pitre Pages Register</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; }
+  input[type="search"] { -webkit-appearance: none; appearance: none; }
+
+  :root {
+    --paper:      #EFF1EE;
+    --surface:    #FFFFFF;
+    --surface-2:  #E7EAE6;
+    --ink:        #16191A;
+    --ink-2:      #3E4744;
+    --muted:      #6C7570;
+    --line:       #D5DAD4;
+    --line-soft:  #E2E6E0;
+    --accent:     #3F6B50;
+    --accent-2:   #29513A;
+    --accent-dim: #E2ECE4;
+    --alert:      #A9542A;
+    --alert-dim:  #F3E5DB;
+    --shadow:     0 1px 2px rgba(22,25,26,.05), 0 6px 18px -12px rgba(22,25,26,.35);
+    --shadow-lift:0 2px 4px rgba(22,25,26,.06), 0 16px 32px -18px rgba(22,25,26,.45);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:      #121514;
+      --surface:    #1A1E1D;
+      --surface-2:  #232928;
+      --ink:        #E8ECE8;
+      --ink-2:      #B7C0BA;
+      --muted:      #8A948E;
+      --line:       #2C3331;
+      --line-soft:  #232928;
+      --accent:     #8ABF9E;
+      --accent-2:   #A9D4B9;
+      --accent-dim: #1E2C24;
+      --alert:      #D9906A;
+      --alert-dim:  #2E211A;
+      --shadow:     0 1px 2px rgba(0,0,0,.4), 0 6px 18px -12px rgba(0,0,0,.8);
+      --shadow-lift:0 2px 4px rgba(0,0,0,.45), 0 16px 32px -18px rgba(0,0,0,.9);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:      #121514;
+    --surface:    #1A1E1D;
+    --surface-2:  #232928;
+    --ink:        #E8ECE8;
+    --ink-2:      #B7C0BA;
+    --muted:      #8A948E;
+    --line:       #2C3331;
+    --line-soft:  #232928;
+    --accent:     #8ABF9E;
+    --accent-2:   #A9D4B9;
+    --accent-dim: #1E2C24;
+    --alert:      #D9906A;
+    --alert-dim:  #2E211A;
+    --shadow:     0 1px 2px rgba(0,0,0,.4), 0 6px 18px -12px rgba(0,0,0,.8);
+    --shadow-lift:0 2px 4px rgba(0,0,0,.45), 0 16px 32px -18px rgba(0,0,0,.9);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 24px 96px;
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 56px 0 28px;
+  }
+
+  .eyebrow {
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .masthead h1 {
+    font-family: "Newsreader", Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: clamp(38px, 6vw, 60px);
+    line-height: 1.02;
+    letter-spacing: -.015em;
+    text-wrap: balance;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .masthead h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .lede {
+    max-width: 60ch;
+    margin: 0;
+    color: var(--ink-2);
+    font-size: 15.5px;
+  }
+
+  .lede a {
+    color: var(--ink);
+    text-decoration-color: var(--line);
+    text-underline-offset: 3px;
+  }
+  .lede a:hover { text-decoration-color: var(--accent); }
+
+  /* ---------- control bar ---------- */
+
+  .controls {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 40px;
+  }
+
+  .search {
+    position: relative;
+    flex: 1 1 300px;
+    min-width: 0;
+  }
+
+  .search svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 15px;
+    color: var(--muted);
+    pointer-events: none;
+  }
+
+  #q {
+    width: 100%;
+    font: inherit;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    padding: 9px 62px 9px 34px;
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+  }
+
+  #q::placeholder { color: var(--muted); }
+
+  #q:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+  }
+
+  .kbd {
+    position: absolute;
+    right: 9px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10.5px;
+    color: var(--muted);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 2px 6px;
+    pointer-events: none;
+  }
+  #q:not(:placeholder-shown) ~ .kbd { opacity: 0; }
+
+  .tally {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .tally b { color: var(--ink); font-weight: 500; }
+
+  /* ---------- groups ---------- */
+
+  .group { margin-bottom: 48px; }
+
+  .group-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding-bottom: 10px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .group-head h2 {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .group-head .count {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted);
+    margin-left: auto;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+    gap: 14px;
+  }
+
+  /* ---------- site card ---------- */
+
+  .site {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: border-color .15s, box-shadow .15s, transform .15s;
+  }
+
+  .site:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-lift);
+    transform: translateY(-1px);
+  }
+
+  .site-main {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    flex: 1;
+    padding: 15px 16px 13px;
+    text-decoration: none;
+    color: inherit;
+    outline: none;
+  }
+
+  .site-main:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--accent);
+    border-radius: 5px;
+  }
+
+  .site-title {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -.005em;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+
+  .site-main:hover .site-title-text {
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 3px;
+  }
+
+  .arrow {
+    flex: none;
+    margin-left: auto;
+    width: 13px;
+    height: 13px;
+    margin-top: 4px;
+    color: var(--muted);
+    transition: color .15s, transform .15s;
+  }
+  .site-main:hover .arrow {
+    color: var(--accent);
+    transform: translate(2px, -2px);
+  }
+
+  .site-desc {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.45;
+    color: var(--ink-2);
+  }
+
+  .site-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 9px;
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted);
+  }
+
+  .slug {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .site-meta time { margin-left: auto; flex: none; }
+
+  /* ---------- flags ---------- */
+
+  .flag {
+    flex: none;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 2.5px 6px;
+    border-radius: 3px;
+    margin-top: 2px;
+    white-space: nowrap;
+  }
+
+  .flag-unlisted {
+    color: var(--alert);
+    background: var(--alert-dim);
+  }
+
+  .flag-deep {
+    color: var(--muted);
+    background: var(--surface-2);
+  }
+
+  /* ---------- sub-pages ---------- */
+
+  .subs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 10px 16px 13px;
+    border-top: 1px solid var(--line-soft);
+    background: var(--surface-2);
+  }
+
+  .subs a {
+    font-size: 12px;
+    line-height: 1;
+    color: var(--ink-2);
+    text-decoration: none;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 5px 8px;
+    transition: color .12s, border-color .12s;
+  }
+
+  .subs a:hover,
+  .subs a:focus-visible {
+    color: var(--accent);
+    border-color: var(--accent);
+    outline: none;
+  }
+
+  /* ---------- empty state ---------- */
+
+  #empty {
+    display: none;
+    padding: 56px 0;
+    text-align: center;
+    color: var(--muted);
+  }
+  #empty p { margin: 0 0 6px; }
+  #empty code {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    color: var(--ink);
+  }
+
+  body.no-results #empty { display: block; }
+
+  .group[hidden] { display: none; }
+  .site[hidden]  { display: none; }
+
+  /* ---------- footer ---------- */
+
+  .colophon {
+    margin-top: 12px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    font-size: 12.5px;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .colophon strong { color: var(--ink-2); font-weight: 600; }
+
+  .colophon a {
+    color: var(--accent);
+    text-decoration-color: var(--line);
+    text-underline-offset: 3px;
+  }
+  .colophon a:hover { text-decoration-color: var(--accent); }
+
+  .colophon code {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11.5px;
+    color: var(--ink-2);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+
+  @media (max-width: 560px) {
+    .wrap { padding: 0 16px 72px; }
+    .masthead { padding-top: 36px; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">brianpitre.github.io</p>
+    <h1>Every page you've <em>shipped</em></h1>
+    <p class="lede">
+      Thirty live sites published from the
+      <a href="https://github.com/brianpitre?tab=repositories" target="_blank" rel="noopener">brianpitre</a>
+      GitHub account. Click any card to open it; type to filter across titles, descriptions and repo names.
+    </p>
+  </header>
+
+  <div class="controls">
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.6-3.6"></path>
+      </svg>
+      <input id="q" type="search" placeholder="Filter sites…" autocomplete="off" spellcheck="false" aria-label="Filter sites">
+      <span class="kbd">/</span>
+    </div>
+    <span class="tally"><b id="shown">30</b> / 30 sites</span>
+  </div>
+
+  <main id="list">
+
+    <!-- ===================== ZOE 2026 ===================== -->
+    <section class="group" data-group="Zoe Conference 2026">
+      <div class="group-head">
+        <h2>Zoe Conference 2026</h2>
+        <span class="count"></span>
+      </div>
+      <div class="grid">
+
+        <article class="site" data-search="zoe conference 2026 in the beginning main site the life church faqs scholarship specimen">
+          <a class="site-main" href="https://brianpitre.github.io/zoe-conference/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Zoe Conference 2026</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">The main conference site — “In the Beginning…”</p>
+            <div class="site-meta"><span class="slug">zoe-conference</span><time datetime="2026-07-01">2026-07-01</time></div>
+          </a>
+          <div class="subs">
+            <a href="https://brianpitre.github.io/zoe-conference/faqs.html" target="_blank" rel="noopener">FAQs</a>
+            <a href="https://brianpitre.github.io/zoe-conference/scholarship.html" target="_blank" rel="noopener">Scholarship</a>
+            <a href="https://brianpitre.github.io/zoe-conference/specimen.html" target="_blank" rel="noopener">Type specimen</a>
+          </div>
+        </article>
+
+        <article class="site" data-search="zoe book illuminated manuscript scroll 3d">
+          <a class="site-main" href="https://brianpitre.github.io/zoe-book/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Zoe 2026 · The Book</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">Alternate site as a scroll-driven illuminated manuscript.</p>
+            <div class="site-meta"><span class="slug">zoe-book</span><time datetime="2026-07-04">2026-07-04</time></div>
+          </a>
+        </article>
+
+        <article class="site" data-search="zoe light grid led canopy build views 2000 raked hang guide">
+          <a class="site-main" href="https://brianpitre.github.io/zoe-light-grid/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Light Grid — Build Views</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">Interactive build reference for the 2,000-LED raked canopy.</p>
+            <div class="site-meta"><span class="slug">zoe-light-grid</span><time datetime="2026-07-16">2026-07-16</time></div>
+          </a>
+        </article>
+
+        <article class="site" data-search="zoe opener lights living field immersive in the beginning">
+          <a class="site-main" href="https://brianpitre.github.io/zoe-opener-lights/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">The Living Field</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">Self-contained immersive opener — “In the Beginning.”</p>
+            <div class="site-meta"><span class="slug">zoe-opener-lights</span><time datetime="2026-07-01">2026-07-01</time></div>
+          </a>
+        </article>
+
+        <article class="site" data-search="zoe 2026 opener concept deck in the beginning">
+          <a class="site-main" href="https://brianpitre.github.io/zoe-2026-opener/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Opener Concept</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">The original “In the Beginning” concept presentation.</p>
+            <div class="site-meta"><span class="slug">zoe-2026-opener</span><time datetime="2026-06-10">2026-06-10</time></div>
+          </a>
+        </article>
+
+        <article class="site" data-search="zoe conference brand guide identity typography colors">
+          <a class="site-main" href="https://brianpitre.github.io/zoe-conference-brand-guide/brand-guide.html" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Zoe Brand Guide</span>
+              <span class="flag flag-deep">deep link</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">Brand identity reference. The repo's homepage 404s — this links straight to the guide.</p>
+            <div class="site-meta"><span class="slug">…/brand-guide.html</span><time datetime="2026-04-23">2026-04-23</time></div>
+          </a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============ 30TH ANNIVERSARY & 30 STORIES ============ -->
+    <section class="group" data-group="30th Anniversary &amp; 30 Stories">
+      <div class="group-head">
+        <h2>30th Anniversary &amp; 30 Stories</h2>
+        <span class="count"></span>
+      </div>
+      <div class="grid">
+
+        <article class="site" data-search="interview questions index hub cards 30th anniversary">
+          <a class="site-main" href="https://brianpitre.github.io/interview-questions-index/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Interview Question Cards</span>
+              <span class="flag flag-unlisted">unlisted</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">Hub linking every interview question card below.</p>
+            <div class="site-meta"><span class="slug">interview-questions-index</span><time datetime="2026-08-21">2026-08-21</time></div>
+          </a>
+        </article>
+
+        <article class="site" data-search="josh jessica fuentes questions interview card pastors">
+          <a class="site-main" href="https://brianpitre.github.io/josh-jessica-fuentes-questions/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Josh &amp; Jessica Fuentes</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">Interview question card.</p>
+            <div class="site-meta"><span class="slug">josh-jessica-fuentes-questions</span><time datetime="2026-08-21">2026-08-21</time></div>
+          </a>
+        </article>
+
+        <article class="site" data-search="wayne classy francis questions interview card pastors">
+          <a class="site-main" href="https://brianpitre.github.io/wayne-classy-francis-questions/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Wayne &amp; Classy Francis</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">Interview question card.</p>
+            <div class="site-meta"><span class="slug">wayne-classy-francis-questions</span><time datetime="2026-08-19">2026-08-19</time></div>
+          </a>
+        </article>
+
+        <article class="site" data-search="dan lord questions interview card pastor">
+          <a class="site-main" href="https://brianpitre.github.io/dan-lord-questions/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Dan Lord</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">Interview question card.</p>
+            <div class="site-meta"><span class="slug">dan-lord-questions</span><time datetime="2026-08-17">2026-08-17</time></div>
+          </a>
+        </article>
+
+        <article class="site" data-search="don matheny questions interview card pastor">
+          <a class="site-main" href="https://brianpitre.github.io/don-matheny-questions/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Don Matheny</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">Interview question card.</p>
+            <div class="site-meta"><span class="slug">don-matheny-questions</span><time datetime="2026-07-29">2026-07-29</time></div>
+          </a>
+        </article>
+
+        <article class="site" data-search="30th anniversary script production timeline 1996 2026 the life church">
+          <a class="site-main" href="https://brianpitre.github.io/30th-anniversary-script/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">30th Anniversary Script</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">Video script and production timeline, 1996–2026.</p>
+            <div class="site-meta"><span class="slug">30th-anniversary-script</span><time datetime="2026-07-21">2026-07-21</time></div>
+          </a>
+        </article>
+
+        <article class="site" data-search="30 stories b-roll shoot schedule crew contacts">
+          <a class="site-main" href="https://brianpitre.github.io/30-stories-broll-schedule/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">B-Roll Shoot Schedule</span>
+              <span class="flag flag-unlisted">unlisted</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">30 Stories shoot schedule. Carries crew phone numbers and emails.</p>
+            <div class="site-meta"><span class="slug">30-stories-broll-schedule</span><time datetime="2026-08-22">2026-08-22</time></div>
+          </a>
+        </article>
+
+        <article class="site" data-search="30 stories reading transcripts interviews">
+          <a class="site-main" href="https://brianpitre.github.io/reading-transcripts-site/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Reading Transcripts</span>
+              <span class="flag flag-unlisted">unlisted</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">30 Stories interview transcripts in a reading view.</p>
+            <div class="site-meta"><span class="slug">reading-transcripts-site</span><time datetime="2026-08-10">2026-08-10</time></div>
+          </a>
+        </article>
+
+        <article class="site" data-search="nairobi gear rent borrow lighthouse shoot kenya equipment">
+          <a class="site-main" href="https://brianpitre.github.io/nairobi-gear/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Nairobi Gear List</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">Rent-or-borrow pickup list for the Nairobi Lighthouse shoot.</p>
+            <div class="site-meta"><span class="slug">nairobi-gear</span><time datetime="2026-07-16">2026-07-16</time></div>
+          </a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===================== PRODUCTION & TEAM ===================== -->
+    <section class="group" data-group="Production &amp; Team">
+      <div class="group-head">
+        <h2>Production &amp; Team</h2>
+        <span class="count"></span>
+      </div>
+      <div class="grid">
+
+        <article class="site" data-search="playbook hub life church camera training nab las vegas retreat bible school video production pipeline 30th anniversary script">
+          <a class="site-main" href="https://brianpitre.github.io/playbook-hub/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Playbook Hub</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">Landing page for the Life Church production playbooks.</p>
+            <div class="site-meta"><span class="slug">playbook-hub</span><time datetime="2026-08-17">2026-08-17</time></div>
+          </a>
+          <div class="subs">
+            <a href="https://brianpitre.github.io/playbook-hub/Video%20Production%20Pipeline.html" target="_blank" rel="noopener">Video Pipeline</a>
+            <a href="https://brianpitre.github.io/playbook-hub/Camera%20Training.html" target="_blank" rel="noopener">Camera Workshop</a>
+            <a href="https://brianpitre.github.io/playbook-hub/Las%20Vegas%20NAB%20Retreat.html" target="_blank" rel="noopener">NAB Retreat</a>
+            <a href="https://brianpitre.github.io/playbook-hub/Life%20Leadership%20Bible%20School.html" target="_blank" rel="noopener">Bible School</a>
+            <a href="https://brianpitre.github.io/playbook-hub/30th%20Anniversary%20Script.html" target="_blank" rel="noopener">Anniversary Script</a>
+          </div>
+        </article>
+
+        <article class="site" data-search="production playbook the life church">
+          <a class="site-main" href="https://brianpitre.github.io/production-playbook/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Production Playbook</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">The Life Church production playbook, standalone.</p>
+            <div class="site-meta"><span class="slug">production-playbook</span><time datetime="2026-05-06">2026-05-06</time></div>
+          </a>
+        </article>
+
+        <article class="site" data-search="design team production process weekly report leaders creative events 2026">
+          <a class="site-main" href="https://brianpitre.github.io/design-team-production-process/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Design Team Process</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">How the design team runs a job, plus the recurring reports.</p>
+            <div class="site-meta"><span class="slug">design-team-production-process</span><time datetime="2026-05-04">2026-05-04</time></div>
+          </a>
+          <div class="subs">
+            <a href="https://brianpitre.github.io/design-team-production-process/weekly_report.html" target="_blank" rel="noopener">Weekly Tasks</a>
+            <a href="https://brianpitre.github.io/design-team-production-process/weekly_leaders_report.html" target="_blank" rel="noopener">Weekly Leaders</a>
+            <a href="https://brianpitre.github.io/design-team-production-process/event_report_2026.html" target="_blank" rel="noopener">2026 Events Report</a>
+          </div>
+        </article>
+
+        <article class="site" data-search="life church 2026 video lighting upgrade proposal">
+          <a class="site-main" href="https://brianpitre.github.io/life-church-2026-upgrade/2026-video-lighting-upgrade.html" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">2026 Video &amp; Lighting Upgrade</span>
+              <span class="flag flag-deep">deep link</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">Upgrade plan. The repo has no homepage — this opens the document itself.</p>
+            <div class="site-meta"><span class="slug">…/2026-video-lighting-upgrade.html</span><time datetime="2026-04-13">2026-04-13</time></div>
+          </a>
+        </article>
+
+        <article class="site" data-search="easter 2026 good friday rehearsal schedule">
+          <a class="site-main" href="https://brianpitre.github.io/easter-2026-schedule/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Easter 2026 Rehearsals</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">Good Friday and Easter rehearsal schedule.</p>
+            <div class="site-meta"><span class="slug">easter-2026-schedule</span><time datetime="2026-04-14">2026-04-14</time></div>
+          </a>
+        </article>
+
+        <article class="site" data-search="alive church production visit estimate quote">
+          <a class="site-main" href="https://brianpitre.github.io/alive-production-visit/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Alive Production Visit</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">Estimate for the Alive Church production visit.</p>
+            <div class="site-meta"><span class="slug">alive-production-visit</span><time datetime="2026-05-22">2026-05-22</time></div>
+          </a>
+        </article>
+
+        <article class="site" data-search="preaching across america april 2026 tour">
+          <a class="site-main" href="https://brianpitre.github.io/preaching-across-america/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Preaching Across America</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">April 2026 schedule.</p>
+            <div class="site-meta"><span class="slug">preaching-across-america</span><time datetime="2026-04-14">2026-04-14</time></div>
+          </a>
+        </article>
+
+        <article class="site" data-search="make room leaders makeroomleaders">
+          <a class="site-main" href="https://brianpitre.github.io/makeroomleaders/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Make Room</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">Leaders resource site.</p>
+            <div class="site-meta"><span class="slug">makeroomleaders</span><time datetime="2026-04-13">2026-04-13</time></div>
+          </a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===================== SERIES & OPENERS ===================== -->
+    <section class="group" data-group="Series &amp; Openers">
+      <div class="group-head">
+        <h2>Series &amp; Openers</h2>
+        <span class="count"></span>
+      </div>
+      <div class="grid">
+
+        <article class="site" data-search="series studio message series concepts house of prayer under new management pocket change">
+          <a class="site-main" href="https://brianpitre.github.io/Message-Series/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Series Studio</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">Concept galleries for House of Prayer, Under New Management and Pocket Change.</p>
+            <div class="site-meta"><span class="slug">Message-Series</span><time datetime="2026-05-27">2026-05-27</time></div>
+          </a>
+        </article>
+
+        <article class="site" data-search="house of prayer ai concepts gallery">
+          <a class="site-main" href="https://brianpitre.github.io/house-of-prayer-concepts/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">A House of Prayer</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">AI concept gallery for the series.</p>
+            <div class="site-meta"><span class="slug">house-of-prayer-concepts</span><time datetime="2026-05-12">2026-05-12</time></div>
+          </a>
+        </article>
+
+        <article class="site" data-search="axis conference 2026 monday opener code tunnel">
+          <a class="site-main" href="https://brianpitre.github.io/axis/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Axis Monday Opener</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">Monday opener concept for Axis Conference 2026.</p>
+            <div class="site-meta"><span class="slug">axis</span><time datetime="2026-04-30">2026-04-30</time></div>
+          </a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===================== LOCALIZATION ===================== -->
+    <section class="group" data-group="Localization">
+      <div class="group-head">
+        <h2>Localization</h2>
+        <span class="count"></span>
+      </div>
+      <div class="grid">
+
+        <article class="site" data-search="llbc translation pipeline overview spanish italian bible college localization">
+          <a class="site-main" href="https://brianpitre.github.io/llbc-pipeline-overview/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">LLBC Translation Pipeline</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">How Bible college videos get localized end to end.</p>
+            <div class="site-meta"><span class="slug">llbc-pipeline-overview</span><time datetime="2026-08-01">2026-08-01</time></div>
+          </a>
+        </article>
+
+        <article class="site" data-search="lesson translation workflow team voice lips accuracy checks localization">
+          <a class="site-main" href="https://brianpitre.github.io/lesson-translation-workflow/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Lesson Localization Workflow</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">Team-facing workflow — voice and lips, with accuracy checks.</p>
+            <div class="site-meta"><span class="slug">lesson-translation-workflow</span><time datetime="2026-08-24">2026-08-24</time></div>
+          </a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===================== PERSONAL ===================== -->
+    <section class="group" data-group="Personal">
+      <div class="group-head">
+        <h2>Personal</h2>
+        <span class="count"></span>
+      </div>
+      <div class="grid">
+
+        <article class="site" data-search="firenze florence italy 2026 itinerary travel september trip">
+          <a class="site-main" href="https://brianpitre.github.io/firenze-2026/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Firenze 2026</span>
+              <span class="flag flag-unlisted">unlisted</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">Six-day itinerary, 2–7 September. Carries the home-base address and flight numbers.</p>
+            <div class="site-meta"><span class="slug">firenze-2026</span><time datetime="2026-08-17">2026-08-17</time></div>
+          </a>
+        </article>
+
+        <article class="site" data-search="health analysis report brian pitre">
+          <a class="site-main" href="https://brianpitre.github.io/health-analysis/" target="_blank" rel="noopener">
+            <h3 class="site-title"><span class="site-title-text">Health Analysis</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </h3>
+            <p class="site-desc">Personal health analysis report.</p>
+            <div class="site-meta"><span class="slug">health-analysis</span><time datetime="2026-07-03">2026-07-03</time></div>
+          </a>
+        </article>
+
+      </div>
+    </section>
+
+    <div id="empty">
+      <p>No sites match <code id="empty-q"></code>.</p>
+      <p>Try a project name, a topic, or part of a repo slug.</p>
+    </div>
+
+  </main>
+
+  <footer class="colophon">
+    <p style="margin:0"><strong>This index lives at <a href="https://brianpitre.github.io/">brianpitre.github.io</a></strong> — itself <code>noindex</code>, for the reason in the next line.</p>
+    <p style="margin:0"><strong>Unlisted</strong> marks a site set to <code>noindex</code> on purpose — it holds addresses, phone numbers or flight details. Those pages are still publicly reachable by URL, so share this index deliberately.</p>
+    <p style="margin:0"><strong>Not included:</strong> <code>production</code> (empty repo) and <code>zoeconference.com</code> (PHP theme files, no Pages site) publish nothing. <code>llbc-translate</code> is private.</p>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    var q       = document.getElementById('q');
+    var shown   = document.getElementById('shown');
+    var emptyQ  = document.getElementById('empty-q');
+    var groups  = Array.prototype.slice.call(document.querySelectorAll('.group'));
+    var cards   = Array.prototype.slice.call(document.querySelectorAll('.site'));
+
+    // Build a haystack per card from its own text plus the data-search keywords.
+    cards.forEach(function (card) {
+      var group = card.closest('.group').getAttribute('data-group') || '';
+      card._hay = (card.textContent + ' ' + (card.getAttribute('data-search') || '') + ' ' + group)
+        .toLowerCase().replace(/\s+/g, ' ');
+    });
+
+    function stamp() {
+      groups.forEach(function (g) {
+        var live = g.querySelectorAll('.site:not([hidden])').length;
+        g.querySelector('.count').textContent = live;
+      });
+    }
+
+    function filter() {
+      var terms = q.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+      var count = 0;
+
+      cards.forEach(function (card) {
+        var hit = terms.every(function (t) { return card._hay.indexOf(t) !== -1; });
+        card.hidden = !hit;
+        if (hit) count++;
+      });
+
+      groups.forEach(function (g) {
+        g.hidden = g.querySelectorAll('.site:not([hidden])').length === 0;
+      });
+
+      shown.textContent = count;
+      emptyQ.textContent = q.value.trim();
+      document.body.classList.toggle('no-results', count === 0);
+      stamp();
+    }
+
+    q.addEventListener('input', filter);
+
+    q.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { q.value = ''; filter(); }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === '/' && document.activeElement !== q) {
+        e.preventDefault();
+        q.focus();
+        q.select();
+      }
+    });
+
+    shown.textContent = cards.length;
+    document.querySelector('.tally').innerHTML =
+      '<b id="shown">' + cards.length + '</b> / ' + cards.length + ' sites';
+    shown = document.getElementById('shown');
+    stamp();
+  })();
+</script>
+</body>
+</html>
